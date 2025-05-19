@@ -1,0 +1,14 @@
+.navbar{
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+#navIcon{
+    font-size: 42px;
+    user-select: none;
+}
+.pages{
+    display: flex;
+    gap: 50px;
+    font-size: 18px;
+}

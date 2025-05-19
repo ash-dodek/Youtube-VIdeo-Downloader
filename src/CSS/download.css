@@ -1,0 +1,92 @@
+.downloadPage{
+    display: flex;
+    flex-flow: column;
+    /* justify-content: center; */
+    justify-self: center;
+    background-color: white;
+    width: fit-content;
+    padding: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+}
+#thumbnail{
+    width: 300px;
+    border-radius: 12px;
+}
+.videoInfo{
+    display: flex;
+    gap: 35px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.videoInfo h1{
+    font-size: 25px;
+    color: #333333;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+    user-select: none;
+}
+.specialInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    opacity: 0.9;
+    font-size: 15px;
+}
+.specialInfo span{
+    font-weight: 200;
+    opacity: 0.7;
+}
+
+.outer{
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+/* -----------UPPER SECTION DONE------------------------- */
+.available{
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+}
+.downloadTable{
+    width: 100%;
+    border-radius: 12px;
+    border-spacing: 0;
+    text-align: center;
+}
+
+.downloadTable thead {
+  background-color: #f5f7fb;
+  font-weight: 600;
+  text-align: left;
+}
+.downloadTable th,
+.downloadTable td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+.downloadTable td:last-child{
+    display: flex;
+    justify-content: center;
+}
+
+/* th{
+    padding: 20px;
+} */
+/* thead{
+    background-color: #f4f6fe;
+    border: none;
+}
+th{
+    border: none;
+    padding: 25px;
+} */
