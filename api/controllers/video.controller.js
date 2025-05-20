@@ -64,7 +64,7 @@ const downloadVideos = async (req, res) => {
 }   
 
 
-const getAvailableVideoQualities = (req, res) => {
+const getVideoInformation = (req, res) => {
     try {
         const { link } = req.body
         let output = '', error = ''
@@ -81,20 +81,27 @@ const getAvailableVideoQualities = (req, res) => {
             if(code === 0) {
                 const json = JSON.parse(output)
                 const formats = json.formats
-                
-                let qualities = new Set()
-                // console.log(formats)
+                //using map so that we could detect by key and values of the size related to quality
+                let qualities = new Map()
+                // .thumbnail, .duration_string .fulltitle .like_count .view_count
                 
                 formats.forEach(format => {
                     if(format.vcodec !== 'none' && format.height) {
                         const size = format.filesize || format.filesize_approx;
-                        if(size){
-                            qualities.add([format.height, size/1000000])
+                        if(size && !qualities.has(format.height)){
+                            qualities.set(format.height, size/1000000)
                         }
                     }
                 });
                 const qualityArray = [...qualities]
-                res.status(200).json({message:"Success", data: qualityArray})
+                res.status(200).json({
+                        message:"Success",
+                        title: json.title,
+                        views: json.view_count,
+                        thumbnail_url: json.thumbnail,
+                        duration: json.duration_string,
+                        qualities: qualityArray
+                    })
             }
             else{
                 console.log("Error occured")
@@ -108,4 +115,4 @@ const getAvailableVideoQualities = (req, res) => {
     }
 }
 
-module.exports = {downloadVideos, getAvailableVideoQualities}
+module.exports = {downloadVideos, getVideoInformation}
