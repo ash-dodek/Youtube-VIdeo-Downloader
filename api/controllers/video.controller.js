@@ -69,7 +69,7 @@ const getVideoInformation = (req, res) => {
         const { link } = req.body
         let output = '', error = ''
         //-J arg means that the output is in JSON
-        const ytDlp = spawn('yt-dlp', ['-J', link])
+        const ytDlp = spawn('yt-dlp', ['-J', '--no-warnings', '-f', 'bv*[ext=mp4]', link])
 
         ytDlp.stdout.on('data', (data) => {
             output += data.toString();
