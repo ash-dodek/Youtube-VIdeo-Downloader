@@ -9,12 +9,9 @@ const generateRandomID = (length = 4) => {
 
 const downloadVideos = async (req, res) => {
     try {
-        const quality = 144
-
         //generates id, which will the video name(very useful)
         const id = generateRandomID() 
-
-        const link = 'https://www.youtube.com/watch?v=S5EpsMjel-M&t=2582s'
+        const { link, quality } = req.body
 
         //arguments that will be pased in the yt-dlp command
         /*
@@ -40,18 +37,16 @@ const downloadVideos = async (req, res) => {
         downloader.on('close', (code) => {
 
             if(code === 0) {
-                console.log("================= Process done =================")
                 const absoultePath = path.join(__dirname, `../downloads/${id}/${id}.mp4`)
                 res.sendFile(absoultePath)
+                console.log("================= Process done =================")
                 
             }
             else{
-                res.status(500).json(
-                    {
+                res.status(500).json({
                         success:false, 
                         message:"Error: Some error occured while downloading the video",
-                    }
-                )
+                    })
             }
 
         })
@@ -86,15 +81,17 @@ const getVideoInformation = (req, res) => {
                 // .thumbnail, .duration_string .fulltitle .like_count .view_count
                 
                 formats.forEach(format => {
-                    if(format.vcodec !== 'none' && format.height) {
-                        const size = format.filesize || format.filesize_approx;
-                        if(size && !qualities.has(format.height)){
-                            qualities.set(format.height, size/1000000)
+                    const size = format.filesize || format.filesize_approx;
+                    if(size&&format.vcodec !== 'none' && format.height) {
+                        if(!qualities.has(format.height)){
+                            //pushes in the map [height, size]
+                            qualities.set(format.height, size ? size/1000000 : "NA")
                         }
                     }
                 });
                 const qualityArray = [...qualities]
                 res.status(200).json({
+                        success: true,
                         message:"Success",
                         title: json.title,
                         views: json.view_count,
@@ -104,7 +101,7 @@ const getVideoInformation = (req, res) => {
                     })
             }
             else{
-                console.log("Error occured")
+                console.log("Error occured-->", code)
                 res.status(500).json({success:false, message:"Some error occured in downloading the file"})
             }
         })
