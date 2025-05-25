@@ -1,12 +1,40 @@
-# React + Vite
+# Youtube Video Downloader
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fullstack YouTube video downloader built with **ReactJS** (frontend) and **NodeJS + Express** (backend), using the `yt-dlp` tool to download the videos with given link
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Demo
+![Demo Screenshot](public/demo1.png)
+![Demo Screenshot](public/demo2.png)
 
-## Expanding the ESLint configuration
+# Tech Stack
+Uses React, Node, Express, and yt-dlp for downloading videos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# How to use?
+### 1. Clone the Repository
+```bash 
+git clone https://github.com/ash-dodek/Youtube-Video-Downloader.git
+cd Youtube-Video-Downloader
+```
+
+### 2. Install Dependencies
+- Frontend
+```bash 
+npm i
+```
+- Backend
+```bash
+pip install yt-dlp
+```
+ then
+ ```bash 
+cd api
+npm i
+```
+
+### 3. Start the App
+- In api folder
+Start the server by `nodemon`
+- Inside the outer folder, run `npm run dev`
+
+This will start the website on `http://localhost:5173/`, and the backend on `http://localhost:3000/`
