@@ -5,6 +5,7 @@ import Home from './Components/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './Layout'
 import DownloadPage from './Components/DownloadPage'
+import {VideoProvider} from './Context/VideoContext.jsx'
 
 function App() {
   
@@ -12,6 +13,7 @@ function App() {
   return (
     <>
     <BrowserRouter>
+    <VideoProvider>
       <Routes>
         <Route path='/' element={<Layout/>}>
           <Route index element={<Home/>}/>
@@ -22,6 +24,7 @@ function App() {
 
         </Route>
       </Routes>
+    </VideoProvider>
     </BrowserRouter>
     </>
   )
