@@ -11,7 +11,7 @@ const downloadVideos = async (req, res) => {
     try {
         //generates id, which will the video name(very useful)
         const id = generateRandomID() 
-        const { link, quality } = req.body
+        const { link, quality, videoTitle } = req.body
 
         //arguments that will be pased in the yt-dlp command
         /*
@@ -38,6 +38,11 @@ const downloadVideos = async (req, res) => {
 
             if(code === 0) {
                 const absoultePath = path.join(__dirname, `../downloads/${id}/${id}.mp4`)
+
+                //Required headers need to be set
+                res.setHeader('Content-Type', 'video/mp4');
+                res.setHeader('Content-Disposition', `attachment; filename="${videoTitle}.mp4"`);
+
                 res.sendFile(absoultePath)
                 console.log("================= Process done =================")
                 
@@ -64,7 +69,7 @@ const getVideoInformation = (req, res) => {
         const { link } = req.body
         let output = '', error = ''
         //-J arg means that the output is in JSON
-        const ytDlp = spawn('yt-dlp', ['-J', '--no-warnings', '-f', 'bv*[ext=mp4]', link])
+        const ytDlp = spawn('yt-dlp', ['-J', '--no-warnings', '-f', 'best[ext=mp4]', link])
 
         ytDlp.stdout.on('data', (data) => {
             output += data.toString();
@@ -83,9 +88,10 @@ const getVideoInformation = (req, res) => {
                 formats.forEach(format => {
                     const size = format.filesize || format.filesize_approx;
                     if(size&&format.vcodec !== 'none' && format.height) {
-                        if(!qualities.has(format.height)){
-                            //pushes in the map [height, size]
-                            qualities.set(format.height, size ? size/1000000 : "NA")
+                        const currentFileSize = size/1000000
+                        const existing = qualities.get(format.height) //checking if the quality exists
+                        if(!existing || currentFileSize > existing.size) {
+                            qualities.set(format.height, currentFileSize)
                         }
                     }
                 });
