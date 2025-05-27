@@ -31,6 +31,9 @@ pip install yt-dlp
 cd api
 npm i
 ```
+ In the root directory, create a `.env` file, in the file add a field name `VITE_API_URL`, which stores the url of the hostedb ackend, in this case it is `http://localhost:3000`
+
+ Therefore we add `VITE_API_URL = http://localhost:3000`
 
 ### 3. Start the App
 - In api folder
